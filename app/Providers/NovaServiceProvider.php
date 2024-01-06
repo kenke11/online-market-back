@@ -25,8 +25,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::mainMenu(static function () {
             return [
                 MenuSection::make('Languages', [
-                    MenuItem::resource(Locale::class)->name('Locale Codes'),
-                    MenuItem::resource(Language::class)->name('Languages'),
+                    MenuItem::resource(Locale::class)->name('Country Codes'),
                 ]),
                 MenuSection::make('Admins', [
                     MenuItem::resource(User::class)->name('Users'),

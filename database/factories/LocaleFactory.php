@@ -17,7 +17,7 @@ class LocaleFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => fake()->countryCode()
+            'code' => fake()->countryCode(),
         ];
     }
 }

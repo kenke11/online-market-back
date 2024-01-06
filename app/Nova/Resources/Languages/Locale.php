@@ -3,7 +3,6 @@
 namespace App\Nova\Resources\Languages;
 
 use App\Nova\Resource;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -44,7 +43,7 @@ class Locale extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('code')
+            Text::make('Country code', 'code'),
         ];
     }
 
