@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Language;
+use App\Nova\Resources\User;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Menu\MenuItem;
+use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -16,6 +20,18 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::mainMenu(static function () {
+            return [
+                MenuSection::make('Languages', [
+                    MenuItem::resource(Language::class)->name('Languages'),
+                ]),
+                MenuSection::make('Admins', [
+                    MenuItem::resource(User::class)->name('Users'),
+                ])->icon('user'),
+            ];
+        });
+
     }
 
     /**

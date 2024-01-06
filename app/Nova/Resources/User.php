@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Nova;
+namespace App\Nova\Resources;
 
-use Illuminate\Http\Request;
+use App\Nova\Resource;
 use Illuminate\Validation\Rules;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
