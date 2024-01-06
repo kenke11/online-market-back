@@ -14,14 +14,12 @@ class LanguageSeeder extends Seeder
     {
         $countries = collect([
             [
-                'code' => 'ka',
                 'name' => [
                     'ka' => 'ქართული',
                     'en' => 'Georgia',
                 ]
             ],
             [
-                'code' => 'en',
                 'name' => [
                     'ka' => 'ინგლისური',
                     'en' => 'English',
@@ -31,8 +29,7 @@ class LanguageSeeder extends Seeder
 
         $countries->each(function (array $country) {
             Language::factory()->create([
-                'name' => json_encode($country['name']),
-                'code' => $country['code']
+                'name' => $country['name'],
             ]);
         });
     }

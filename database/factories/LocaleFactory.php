@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Language>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Locales>
  */
-class LanguageFactory extends Factory
+class LocaleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,7 @@ class LanguageFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => [
-                'ka' => fake()->country(),
-                'en' => fake()->country(),
-            ],
+            'code' => fake()->countryCode()
         ];
     }
 }
