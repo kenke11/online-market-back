@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Nova\Resources\Categories\Category;
 use App\Nova\Resources\Categories\SubCategory;
 use App\Nova\Resources\Languages\Locale;
+use App\Nova\Resources\Products\Product;
 use App\Nova\Resources\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Menu\MenuItem;
@@ -25,6 +26,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::mainMenu(static function () {
             return [
+                MenuSection::make('Products', [
+                    MenuItem::resource(Product::class)->name('Products'),
+                ]),
                 MenuSection::make('Product Categories', [
                     MenuItem::resource(Category::class)->name('Main Categories'),
                     MenuItem::resource(SubCategory::class)->name('Sub Categories'),
