@@ -64,6 +64,7 @@ class Product extends Resource
 
             Translatable::make([
                 FlexContent::make('Details', 'details')
+                    ->hideFromIndex()
             ])
         ];
     }
