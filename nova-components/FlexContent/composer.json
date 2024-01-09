@@ -1,0 +1,29 @@
+{
+    "name": "online-market/flex-content",
+    "description": "A Laravel Nova field.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.3|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OnlineMarket\\FlexContent\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OnlineMarket\\FlexContent\\FieldServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

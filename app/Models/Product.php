@@ -19,8 +19,7 @@ class Product extends Model
     ];
 
     protected $casts = [
-        'details.ka' => 'collection',
-        'details.en' => 'collection',
+        'details' => 'json',
     ];
 
     public function subCategories(): BelongsToMany

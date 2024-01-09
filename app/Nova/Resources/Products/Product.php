@@ -2,7 +2,6 @@
 
 namespace App\Nova\Resources\Products;
 
-use App\Nova\Fields\FlexContent;
 use App\Nova\Resource;
 use App\Nova\Resources\Categories\SubCategory;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -10,6 +9,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use OnlineMarket\FlexContent\FlexContent;
 use Outl1ne\MultiselectField\Multiselect;
 use Spatie\NovaTranslatable\Translatable;
 
@@ -61,6 +61,10 @@ class Product extends Resource
                 ->onlyOnForms(),
 
             BelongsToMany::make('Sub Categories', 'subCategories', SubCategory::class),
+
+            Translatable::make([
+                FlexContent::make('Details', 'details')
+            ])
         ];
     }
 

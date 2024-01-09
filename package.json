@@ -3,7 +3,9 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "build-flex-content": "cd nova-components/FlexContent && npm run dev",
+        "build-flex-content-prod": "cd nova-components/FlexContent && npm run prod"
     },
     "devDependencies": {
         "axios": "^1.6.1",
