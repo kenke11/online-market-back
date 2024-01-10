@@ -16,6 +16,7 @@ return new class extends Migration
             $table->json('name');
             $table->bigInteger('price');
             $table->json('details')->nullable();
+            $table->foreignId('category_id')->nullable();
             $table->timestamps();
         });
     }

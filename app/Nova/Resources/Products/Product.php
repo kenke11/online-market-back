@@ -3,7 +3,9 @@
 namespace App\Nova\Resources\Products;
 
 use App\Nova\Resource;
+use App\Nova\Resources\Categories\Category;
 use App\Nova\Resources\Categories\SubCategory;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -57,9 +59,10 @@ class Product extends Resource
                 'numeric'
             ]),
 
+            BelongsTo::make('Main Category', 'category', Category::class)->nullable(),
+
             Multiselect::make('Sub Categories', 'subCategories')
-                ->belongsToMany(SubCategory::class, false)
-                ->onlyOnForms(),
+                ->belongsToMany(SubCategory::class, false)->hideFromIndex(),
 
             Translatable::make([
                 FlexContent::make('Details', 'details')
