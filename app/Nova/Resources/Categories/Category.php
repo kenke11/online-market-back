@@ -49,6 +49,11 @@ class Category extends Resource
             Translatable::make([
                 Text::make('name')->rules(['required']),
             ]),
+            Text::make('slug')->rules([
+                'required',
+                'regex:/^[a-zA-Z0-9\-_]+$/',
+                'unique:categories,slug'
+            ]),
             Multiselect::make('Sub Categories', 'subCategories')
                 ->belongsToMany(SubCategory::class, false)
                 ->onlyOnForms(),

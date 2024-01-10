@@ -54,6 +54,11 @@ class Product extends Resource
             Translatable::make([
                 Text::make('name')->rules(['required']),
             ]),
+            Text::make('slug')->rules([
+                'required',
+                'regex:/^[a-zA-Z0-9\-_]+$/',
+                'unique:products,slug'
+            ]),
             Number::make('Price', 'price')->rules([
                 'required',
                 'numeric'

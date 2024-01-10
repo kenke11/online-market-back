@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->json('name');
+            $table->string('slug')->unique();
             $table->bigInteger('price');
             $table->json('details')->nullable();
             $table->foreignId('category_id')->nullable();
