@@ -16,7 +16,7 @@ return new class extends Migration
             $table->json('name');
             $table->boolean('is_color');
             $table->string('color_value')->nullable();
-            $table->json('specification_description');
+            $table->json('specification_description')->nullable();
             $table->foreignId('product_specification_id')->constrained()->onDelete('cascade');;
             $table->timestamps();
         });

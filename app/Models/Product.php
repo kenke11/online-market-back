@@ -23,11 +23,6 @@ class Product extends Model
         'details' => 'json',
     ];
 
-    public static function allProducts()
-    {
-        return self::all();
-    }
-
     public function subCategories(): BelongsToMany
     {
         return $this->belongsToMany(SubCategory::class, 'product_subcategory', 'product_id', 'sub_category_id');

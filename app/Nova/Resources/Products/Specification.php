@@ -4,8 +4,14 @@ namespace App\Nova\Resources\Products;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Color;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Spatie\NovaTranslatable\Translatable;
 
 class Specification extends Resource
 {
@@ -42,6 +48,18 @@ class Specification extends Resource
     {
         return [
             ID::make()->sortable(),
+            Translatable::make([
+               Text::make('name')->rules(['required'])
+            ]),
+            Boolean::make('Is Color', 'is_color'),
+            Color::make('Color Value', 'color_value')->hideFromIndex(),
+            Translatable::make([
+                Textarea::make('Specification Description', 'specification_description')->hideFromIndex(),
+            ]),
+
+            BelongsTo::make('Product Group', 'productSpecification', ProductSpecification::class)
+                ->searchable()
+                ->rules('required'),
         ];
     }
 
