@@ -4,8 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Translatable\HasTranslations;
 
 class ProductSpecification extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
+
+    protected $fillable = ['group_name'];
+
+    protected  $translatable = [
+        'group_name',
+    ];
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }
