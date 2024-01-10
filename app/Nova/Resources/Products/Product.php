@@ -57,7 +57,7 @@ class Product extends Resource
             Text::make('slug')->rules([
                 'required',
                 'regex:/^[a-zA-Z0-9\-_]+$/',
-                'unique:products,slug'
+                'unique:products,slug,{{resourceId}}'
             ]),
             Number::make('Price', 'price')->rules([
                 'required',

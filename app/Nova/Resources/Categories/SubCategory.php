@@ -4,6 +4,7 @@ namespace App\Nova\Resources\Categories;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -53,7 +54,7 @@ class SubCategory extends Resource
             Text::make('slug')->rules([
                 'required',
                 'regex:/^[a-zA-Z0-9\-_]+$/',
-                'unique:sub_categories,slug'
+                'unique:sub_categories,slug,{{resourceId}}'
             ]),
             Multiselect::make('Categories', 'categories')
                 ->belongsToMany(Category::class, false)

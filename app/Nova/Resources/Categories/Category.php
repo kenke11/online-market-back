@@ -52,7 +52,7 @@ class Category extends Resource
             Text::make('slug')->rules([
                 'required',
                 'regex:/^[a-zA-Z0-9\-_]+$/',
-                'unique:categories,slug'
+                'unique:categories,slug,{{resourceId}}'
             ]),
             Multiselect::make('Sub Categories', 'subCategories')
                 ->belongsToMany(SubCategory::class, false)
