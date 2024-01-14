@@ -7,9 +7,14 @@ use App\Models\Locale;
 
 class ProductService
 {
-    public function getFilteredSpecifications($categorySlug): array
+    public function getFilteredSpecifications($categorySlug, $subCategorySlug = null): array
     {
-        $category = $this->getCategoryWithSpecifications($categorySlug);
+        if ($subCategorySlug)
+        {
+            $category = $this->getSubCategoryWithSpecifications($categorySlug, $subCategorySlug);
+        } else {
+            $category = $this->getCategoryWithSpecifications($categorySlug);
+        }
         $groupedSpecifications = $this->groupSpecificationsByProduct($category);
 
         return array_values($groupedSpecifications);
@@ -19,6 +24,18 @@ class ProductService
     {
         return Category::where('slug', $categorySlug)
             ->with(['products.productSpecifications.specifications'])
+            ->firstOrFail();
+    }
+
+    private function getSubCategoryWithSpecifications($categorySlug, $subCategorySlug)
+    {
+        $category = Category::where('slug', $categorySlug)
+            ->with(['subCategories'])
+            ->firstOrFail();
+
+        return  $category->subCategories()
+            ->where('slug', $subCategorySlug)
+            ->with('products.productSpecifications.specifications')
             ->firstOrFail();
     }
 

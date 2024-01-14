@@ -31,4 +31,32 @@ class ProductController extends Controller
         ]);
     }
 
+    public function getProductsBySubCategory($category, $subCategory): JsonResponse
+    {
+        $category = Category::where('slug', $category)
+            ->with('subCategories')
+            ->firstOrFail();
+
+
+        $subCategory = $category->subCategories()
+            ->where('slug', $subCategory)
+            ->with('products.productSpecifications.specifications')
+            ->firstOrFail();
+
+        $products = $subCategory->products;
+
+        return response()->json([
+            'products' => $products
+        ]);
+    }
+
+    public function getProductFilterBySubCategory($category, $subCategory): JsonResponse
+    {
+        $productService = new ProductService();
+        $filteredSpecifications = $productService->getFilteredSpecifications($category, $subCategory);
+
+        return response()->json([
+            'filters' => $filteredSpecifications,
+        ]);
+    }
 }
