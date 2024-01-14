@@ -60,6 +60,8 @@ class ProductService
         foreach ($product->productSpecifications as $productSpecification) {
             foreach ($productSpecification->specifications as $specification) {
                 $specificationName = $specification->name;
+                $isColor = $specification->is_color;
+                $value = $isColor ? $specification->color_value : $specification->specification_description;
 
                 if (!isset($groupedSpecifications[$specificationName])) {
                     $groupedSpecifications[$specificationName] = [
@@ -68,7 +70,22 @@ class ProductService
                     ];
                 }
 
-                $groupedSpecifications[$specificationName]['specifications'][] = $specification;
+                $found = false;
+
+                foreach ($groupedSpecifications[$specificationName]['specifications'] as $existingSpecification) {
+                    $existingIsColor = $existingSpecification->is_color;
+                    $existingValue = $existingIsColor ? $existingSpecification->color_value : $existingSpecification->specification_description;
+
+                    if (($isColor && $existingIsColor && $value == $existingValue) ||
+                        (!$isColor && !$existingIsColor && $value == $existingValue)) {
+                        $found = true;
+                        break;
+                    }
+                }
+
+                if (!$found) {
+                    $groupedSpecifications[$specificationName]['specifications'][] = $specification;
+                }
             }
         }
     }
