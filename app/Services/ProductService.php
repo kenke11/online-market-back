@@ -35,7 +35,11 @@ class ProductService
 
         return  $category->subCategories()
             ->where('slug', $subCategorySlug)
-            ->with('products.productSpecifications.specifications')
+            ->with(['products' => function ($query) use ($categorySlug) {
+                $query->whereHas('category', function ($q) use ($categorySlug) {
+                    $q->where('slug', $categorySlug);
+                })->with('productSpecifications.specifications');
+            }])
             ->firstOrFail();
     }
 

@@ -37,10 +37,13 @@ class ProductController extends Controller
             ->with('subCategories')
             ->firstOrFail();
 
-
         $subCategory = $category->subCategories()
             ->where('slug', $subCategory)
-            ->with('products.productSpecifications.specifications')
+            ->with(['products' => function ($query) use ($category) {
+                $query->whereHas('category', function ($q) use ($category) {
+                    $q->where('slug', $category->slug);
+                })->with('productSpecifications.specifications');
+            }])
             ->firstOrFail();
 
         $products = $subCategory->products;
