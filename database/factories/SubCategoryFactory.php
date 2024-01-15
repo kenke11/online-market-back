@@ -16,8 +16,14 @@ class SubCategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->word();
+
         return [
-            //
+            'name' => [
+                'en' => $name,
+                'ka' => $name
+            ],
+            'slug' => $name
         ];
     }
 }
