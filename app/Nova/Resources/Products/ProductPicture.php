@@ -7,8 +7,11 @@ use App\Nova\Resources\Categories\Category;
 use App\Nova\Resources\Categories\SubCategory;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -16,21 +19,21 @@ use OnlineMarket\FlexContent\FlexContent;
 use Outl1ne\MultiselectField\Multiselect;
 use Spatie\NovaTranslatable\Translatable;
 
-class Product extends Resource
+class ProductPicture extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Product>
+     * @var class-string<\App\Models\ProductPicture>
      */
-    public static $model = \App\Models\Product::class;
+    public static $model = \App\Models\ProductPicture::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -38,7 +41,7 @@ class Product extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name'
+        'id'
     ];
 
     /**
@@ -51,32 +54,9 @@ class Product extends Resource
     {
         return [
             ID::make()->sortable(),
-            Translatable::make([
-                Text::make('name')->rules(['required']),
-            ]),
-            Text::make('slug')->rules([
-                'required',
-                'regex:/^[a-zA-Z0-9\-_]+$/',
-                'unique:products,slug,{{resourceId}}'
-            ]),
-            Number::make('Price', 'price')->rules([
-                'required',
-                'numeric'
-            ]),
-
-            BelongsTo::make('Main Category', 'category', Category::class)->nullable(),
-
-            Multiselect::make('Sub Categories', 'subCategories')
-                ->belongsToMany(SubCategory::class, false)->hideFromIndex(),
-
-            Translatable::make([
-                FlexContent::make('Details', 'details')
-                    ->hideFromIndex()
-            ]),
-
-            HasMany::make('Product Pictures', 'productPictures', ProductPicture::class),
-            BelongsToMany::make('Sub Categories', 'subCategories', SubCategory::class),
-            HasMany::make('Specification Group', 'productSpecifications', ProductSpecification::class),
+            Boolean::make('Is main', 'is_main'),
+            Image::make('Photo', 'picture_url')->disk('public')->path('images/products'),
+            BelongsTo::make('Product', 'product', Product::class)->rules(['required']),
         ];
     }
 

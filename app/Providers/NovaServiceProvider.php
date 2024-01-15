@@ -6,6 +6,7 @@ use App\Nova\Resources\Categories\Category;
 use App\Nova\Resources\Categories\SubCategory;
 use App\Nova\Resources\Languages\Locale;
 use App\Nova\Resources\Products\Product;
+use App\Nova\Resources\Products\ProductPicture;
 use App\Nova\Resources\Products\ProductSpecification;
 use App\Nova\Resources\Products\Specification;
 use App\Nova\Resources\User;
@@ -30,9 +31,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             return [
                 MenuSection::make('Products', [
                     MenuItem::resource(Product::class)->name('Products'),
+                    MenuItem::resource(ProductPicture::class)->name('Product Pictures'),
                     MenuItem::resource(ProductSpecification::class)->name('Group Specifications'),
                     MenuItem::resource(Specification::class)->name('Specifications'),
-
                 ]),
                 MenuSection::make('Product Categories', [
                     MenuItem::resource(Category::class)->name('Main Categories'),

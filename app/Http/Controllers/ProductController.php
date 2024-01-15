@@ -11,7 +11,7 @@ class ProductController extends Controller
     public function getProductsByCategory($category): JsonResponse
     {
         $category = Category::where('slug', $category)
-            ->with('products.productSpecifications.specifications')
+            ->with(['products.productSpecifications.specifications', 'products.productPictures'])
             ->firstOrFail();
 
         $products = $category->products;
@@ -42,7 +42,7 @@ class ProductController extends Controller
             ->with(['products' => function ($query) use ($category) {
                 $query->whereHas('category', function ($q) use ($category) {
                     $q->where('slug', $category->slug);
-                })->with('productSpecifications.specifications');
+                })->with(['productSpecifications.specifications', 'productPictures']);
             }])
             ->firstOrFail();
 
