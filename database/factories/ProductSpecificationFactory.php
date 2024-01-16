@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,14 @@ class ProductSpecificationFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->word();
+
         return [
-            //
+            'product_id' => Product::all()->random()->id,
+            'group_name' => [
+                'en' => $name,
+                'ka' => $name
+            ],
         ];
     }
 }

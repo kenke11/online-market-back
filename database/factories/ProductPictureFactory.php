@@ -18,8 +18,8 @@ class ProductPictureFactory extends Factory
      */
     public function definition(): array
     {
-        $img = fake()->image();
-        $destinationPath = 'images/products/' . hash('sha256', fake()->firstName()) . '.jpg';
+        $img = fake()->unique()->image();
+        $destinationPath = 'images/products/' . hash('sha256', fake()->unique()->firstName()) . '.jpg';
         Storage::disk('public')->put($destinationPath, file_get_contents($img));
 
         return [

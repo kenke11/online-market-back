@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductPicture;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class ProductPictureSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class ProductPictureSeeder extends Seeder
      */
     public function run(): void
     {
+        $folderPath = 'images';
+        Storage::disk('public')->deleteDirectory($folderPath);
 
         Product::all()->each(function ($product) {
             $numbers = rand(1, 3);
