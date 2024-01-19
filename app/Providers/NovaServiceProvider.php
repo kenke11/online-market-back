@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Nova\Resources\Categories\Category;
 use App\Nova\Resources\Categories\SubCategory;
+use App\Nova\Resources\Dashborard\RenderCategoryProductsInHome;
 use App\Nova\Resources\Languages\Locale;
 use App\Nova\Resources\Products\Product;
 use App\Nova\Resources\Products\ProductPicture;
@@ -29,6 +30,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::mainMenu(static function () {
             return [
+                MenuSection::make('Front Dashboard', [
+                    MenuItem::resource(RenderCategoryProductsInHome::class)->name('Category Products slider'),
+                ]),
                 MenuSection::make('Products', [
                     MenuItem::resource(Product::class)->name('Products'),
                     MenuItem::resource(ProductPicture::class)->name('Product Pictures'),

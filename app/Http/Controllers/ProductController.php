@@ -4,11 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\RenderCategoryProductsInHome;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller
 {
+    public function getProductsBySale(): JsonResponse
+    {
+        $products = Product::all()->where('with_sale', true)->random(10);
+
+        return response()->json([
+            'products' => $products
+        ]);
+    }
+
+    public function getProductsByCategories(): JsonResponse
+    {
+        $renderCategoryProductsInHome = RenderCategoryProductsInHome::with(['category.products'])->get();
+
+        $categories = [];
+
+        foreach ($renderCategoryProductsInHome as $renderCategory) {
+            $categories[] = $renderCategory->category()->with(['products' => function ($query) use ($renderCategory) {
+                $query->inRandomOrder()->limit($renderCategory->quantities_of_products);
+            }])->first();
+        }
+
+        return response()->json([
+            'categories' => $categories
+        ]);
+    }
+
     public function getProductsByCategory($category): JsonResponse
     {
         $category = Category::where('slug', $category)

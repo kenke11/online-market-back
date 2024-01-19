@@ -25,6 +25,9 @@ Route::get('/locales', [LocaleController::class, 'index'])->name('locale');
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('get.category');
 
+Route::get('/products/sales', [ProductController::class, 'getProductsBySale'])->name('get.sale_products');
+Route::get('/products/categories', [ProductController::class, 'getProductsByCategories'])->name('get.categories_products');
+
 Route::get('/products/category/{category}', [ProductController::class, 'getProductsByCategory'])->name('get.product.by-category');
 Route::get('/products/category/{category}/sub-category/{subCategory}', [ProductController::class, 'getProductsBySubCategory'])->name('get.product.by-sub-category');
 
