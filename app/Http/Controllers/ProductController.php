@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function getProductsBySale(): JsonResponse
     {
-        $products = Product::all()->where('with_sale', true)->random(10);
+        $products = Product::with(['productPictures', 'category'])->where('with_sale', true)->inRandomOrder()->limit(10)->get();
 
         return response()->json([
             'products' => $products
@@ -27,7 +27,7 @@ class ProductController extends Controller
 
         foreach ($renderCategoryProductsInHome as $renderCategory) {
             $categories[] = $renderCategory->category()->with(['products' => function ($query) use ($renderCategory) {
-                $query->inRandomOrder()->limit($renderCategory->quantities_of_products);
+                $query->with('productPictures')->inRandomOrder()->limit($renderCategory->quantities_of_products);
             }])->first();
         }
 
