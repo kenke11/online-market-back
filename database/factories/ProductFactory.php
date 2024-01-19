@@ -50,13 +50,19 @@ class ProductFactory extends Factory
             ])
         ];
 
+        $withSale = fake()->boolean();
+        $price = fake()->numberBetween(4000, 5000);
+        $salePrice = $withSale ? $price - fake()->numberBetween(100, 3000) : null;
+
         return [
             'name' => [
                 'en' => $name,
                 'ka' => $name
             ],
             'slug' => $name,
-            'price' => fake()->numberBetween(100, 5000),
+            'with_sale' => $withSale,
+            'price' => $price,
+            'sale_price' => $salePrice,
             'details' => $details,
             'category_id' => Category::all()->random()->id
         ];

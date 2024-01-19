@@ -7,6 +7,7 @@ use App\Nova\Resources\Categories\Category;
 use App\Nova\Resources\Categories\SubCategory;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
@@ -59,7 +60,14 @@ class Product extends Resource
                 'regex:/^[a-zA-Z0-9\-_]+$/',
                 'unique:products,slug,{{resourceId}}'
             ]),
+            Boolean::make('With Sale', 'with_sale'),
+
             Number::make('Price', 'price')->rules([
+                'required',
+                'numeric'
+            ]),
+
+            Number::make('Sale Price', 'sale_price')->rules([
                 'required',
                 'numeric'
             ]),

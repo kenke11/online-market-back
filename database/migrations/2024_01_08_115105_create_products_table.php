@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->json('name');
             $table->string('slug')->unique();
+            $table->boolean('with_sale')->nullable()->default(false);
             $table->bigInteger('price');
+            $table->bigInteger('sale_price')->nullable();
             $table->json('details')->nullable();
             $table->foreignId('category_id')->nullable();
             $table->timestamps();
