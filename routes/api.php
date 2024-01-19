@@ -25,8 +25,10 @@ Route::get('/locales', [LocaleController::class, 'index'])->name('locale');
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('get.category');
 
-Route::get('/products/category/{category}', [ProductController::class, 'getProductsByCategory'])->name('product.by-category');
-Route::get('/products/category/{category}/sub-category/{subCategory}', [ProductController::class, 'getProductsBySubCategory'])->name('product.by-sub-category');
+Route::get('/products/category/{category}', [ProductController::class, 'getProductsByCategory'])->name('get.product.by-category');
+Route::get('/products/category/{category}/sub-category/{subCategory}', [ProductController::class, 'getProductsBySubCategory'])->name('get.product.by-sub-category');
 
-Route::get('/products/filter/category/{category}', [ProductController::class, 'getProductFilterByCategory'])->name('product.filter.by-category');
-Route::get('/products/filter/category/{category}/sub-category/{subCategory}', [ProductController::class, 'getProductFilterBySubCategory'])->name('product.filter.by-sub-category');
+Route::get('/products/filter/category/{category}', [ProductController::class, 'getProductFilterByCategory'])->name('get.product.filter.by-category');
+Route::get('/products/filter/category/{category}/sub-category/{subCategory}', [ProductController::class, 'getProductFilterBySubCategory'])->name('get.product.filter.by-sub-category');
+
+Route::get('/products/category/{categorySlug}/product/{productSlug}', [ProductController::class, 'getProduct'])->name('get.product');

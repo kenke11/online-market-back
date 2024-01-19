@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 
@@ -60,6 +61,21 @@ class ProductController extends Controller
 
         return response()->json([
             'filters' => $filteredSpecifications,
+        ]);
+    }
+
+    public function getProduct($categorySlug, $productSlug): JsonResponse
+    {
+        $category = Category::where('slug', $categorySlug)
+            ->firstOrFail();
+
+        $product = Product::where('slug', $productSlug)
+            ->with(['productPictures', 'productSpecifications.specifications'])
+            ->firstOrFail();
+
+        return response()->json([
+            'product' => $product,
+            'category' => $category
         ]);
     }
 }
